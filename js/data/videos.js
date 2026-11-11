@@ -1,0 +1,543 @@
+// Verified YouTube technique videos (oEmbed 200, embeddable) — generated from research/videos.json on 2026-11-11.
+export const VIDEOS = {
+ "bench_press": {
+  "primary": {
+   "id": "vcBig73ojpE",
+   "title": "How To Get A Huge Bench Press with Perfect Technique",
+   "channel": "Jeff Nippard"
+  },
+  "backup": {
+   "id": "4Y2ZdHCOXok",
+   "title": "How to PROPERLY Bench Press for Growth (5 Easy Steps)",
+   "channel": "Jeremy Ethier"
+  }
+ },
+ "incline_db_press": {
+  "primary": {
+   "id": "0f6-uCUKqgA",
+   "title": "Incline Dumbbell Press BETTER | Targeting The Muscle Series",
+   "channel": "Renaissance Periodization"
+  },
+  "backup": {
+   "id": "hChjZQhX1Ls",
+   "title": "How To: Dumbbell Incline Press | 3 GOLDEN RULES (MADE BETTER!)",
+   "channel": "ScottHermanFitness"
+  }
+ },
+ "seated_db_shoulder_press": {
+  "primary": {
+   "id": "GFblCmuEE18",
+   "title": "HOW TO: Dumbbell Shoulder Press (BIGGER SHOULDERS & BIGGER BENCH PRESS!) || PERFECT FORM",
+   "channel": "ScottHermanFitness"
+  },
+  "backup": {
+   "id": "vlFGTI5JzjI",
+   "title": "How To PROPERLY Dumbbell Shoulder Press (LEARN FAST)",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "lateral_raise": {
+  "primary": {
+   "id": "n5dsI9qQXwY",
+   "title": "Lateral Raise Technique For Huge Delts | Targeting The Muscle Series",
+   "channel": "Renaissance Periodization"
+  },
+  "backup": {
+   "id": "3VcKaXpzqRo",
+   "title": "How To: Dumbbell Side Lateral Raise",
+   "channel": "ScottHermanFitness"
+  }
+ },
+ "triceps_pushdown": {
+  "primary": {
+   "id": "_w-HpW70nSQ",
+   "title": "HOW TO: Cable Triceps Pushdown || 3 Golden Rules (FOR GROWTH)",
+   "channel": "ScottHermanFitness"
+  },
+  "backup": {
+   "id": "mRmIthbCSNI",
+   "title": "How to PROPERLY Tricep Pushdown | 3 Unique Tricep Variations for Muscle Gain",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "overhead_triceps_extension": {
+  "primary": {
+   "id": "IaJWPqP-Bjo",
+   "title": "Overhead Tricep Extension For Maximum Growth | Targeting The Muscle",
+   "channel": "Renaissance Periodization"
+  },
+  "backup": {
+   "id": "GzmlxvSFE7A",
+   "title": "How to PROPERLY Overhead Cable Tricep Extension | Fix Your Tricep Extension Form NOW!",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "chest_supported_row": {
+  "primary": {
+   "id": "llFTFDwmGcw",
+   "title": "How to PROPERLY Incline Dumbbell Row (CHEST SUPPORTED ROW DONE RIGHT)",
+   "channel": "Colossus Fitness"
+  },
+  "backup": {
+   "id": "FU6YQawma2Q",
+   "title": "How to Properly Use Chest Supported Row Machine (QUICK FIXES)",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "tbar_row": {
+  "primary": {
+   "id": "j3Igk5nyZE4",
+   "title": "How To: T-Bar Row",
+   "channel": "ScottHermanFitness"
+  },
+  "backup": {
+   "id": "5foJiIVhs8Q",
+   "title": "How To T-Bar Row The Right Way! (BACK BUILDER!)",
+   "channel": "Mind Pump TV"
+  }
+ },
+ "lat_pulldown": {
+  "primary": {
+   "id": "VXKfH6ciEBI",
+   "title": "Improve Your Lat Pulldown For Growth | Targeting The Muscle Series",
+   "channel": "Renaissance Periodization"
+  },
+  "backup": {
+   "id": "CAwf7n6Luuc",
+   "title": "How To: Lat Pulldown | 3 GOLDEN RULES",
+   "channel": "ScottHermanFitness"
+  }
+ },
+ "seated_cable_row": {
+  "primary": {
+   "id": "7o2oolbmzeI",
+   "title": "How To: Seated Cable Low-Row || PERFECT FORM",
+   "channel": "ScottHermanFitness"
+  },
+  "backup": {
+   "id": "sP_4vybjVJs",
+   "title": "How To Properly Do The Seated Cable Row (IT MATTERS!)",
+   "channel": "Mind Pump TV"
+  }
+ },
+ "face_pull": {
+  "primary": {
+   "id": "rep-qVOkqgk",
+   "title": "How To: Face Pull",
+   "channel": "ScottHermanFitness"
+  },
+  "backup": {
+   "id": "3pToT5_DUiY",
+   "title": "How To Properly Perform Face Pulls For Rear Delts / Fix Your Form",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "ez_bar_curl": {
+  "primary": {
+   "id": "tJIFTI9wZOw",
+   "title": "EZ Bar Curl For Growth | Targeting The Muscle",
+   "channel": "Renaissance Periodization"
+  },
+  "backup": {
+   "id": "5NsFLGUf0Fo",
+   "title": "How To EZ Bar Curl With Perfect Form (Grow Your Biceps)",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "hammer_curl": {
+  "primary": {
+   "id": "8XLxfXROrTo",
+   "title": "HOW TO: Dumbbell Hammer Curl (BICEPS PEAK BUILDER!) || PERFECT FORM",
+   "channel": "ScottHermanFitness"
+  },
+  "backup": {
+   "id": "Hy5L3-QJETc",
+   "title": "How to PROPERLY Dumbbell Hammer Curl (FIX THIS NOW!)",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "back_squat": {
+  "primary": {
+   "id": "bEv6CCg2BC8",
+   "title": "How To Get A Huge Squat With Perfect Technique (Fix Mistakes)",
+   "channel": "Jeff Nippard"
+  },
+  "backup": {
+   "id": "gcNh17Ckjgg",
+   "title": "How to PROPERLY Squat for Growth (4 Easy Steps)",
+   "channel": "Jeremy Ethier"
+  }
+ },
+ "hack_squat": {
+  "primary": {
+   "id": "fE5BWPy7uRc",
+   "title": "How To PROPERLY Hack Squat With Proper Form",
+   "channel": "Colossus Fitness"
+  },
+  "backup": {
+   "id": "bhfyY8F8F24",
+   "title": "Quick Tip: How to Perfect Your Hack Squats",
+   "channel": "Muscle & Strength"
+  }
+ },
+ "romanian_deadlift": {
+  "primary": {
+   "id": "_oyxCn2iSjU",
+   "title": "HOW TO DO ROMANIAN DEADLIFTS (RDLs): Build Beefy Hamstrings With Perfect Technique",
+   "channel": "Jeff Nippard"
+  },
+  "backup": {
+   "id": "5bJEigM5iVg",
+   "title": "FIX Your RDL Form! (Ultimate Romanian Deadlift Tutorial)",
+   "channel": "Squat University"
+  }
+ },
+ "leg_press": {
+  "primary": {
+   "id": "B6rGDcfyPto",
+   "title": "How To Leg Press For Best Quad Growth | Targeting The Muscle Series",
+   "channel": "Renaissance Periodization"
+  },
+  "backup": {
+   "id": "K5n2vg3oZa4",
+   "title": "How to PROPERLY Leg Press (FIX YOUR FORM NOW)",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "lying_leg_curl": {
+  "primary": {
+   "id": "1Tq3QdYUuHs",
+   "title": "How To: Prone Leg Curl (Cybex)",
+   "channel": "ScottHermanFitness"
+  },
+  "backup": {
+   "id": "vl5nUdE9mWM",
+   "title": "How to Lying Leg Curl | Proper Technique, Set Up, & Mistakes",
+   "channel": "Physique Development"
+  }
+ },
+ "standing_calf_raise": {
+  "primary": {
+   "id": "YMmgqO8Jo-k",
+   "title": "How To: Standing Calf (BM)",
+   "channel": "ScottHermanFitness"
+  },
+  "backup": {
+   "id": "SVtg-1loH4c",
+   "title": "How to PROPERLY Standing Calf Raise | Tips & Common Mistakes",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "cable_crunch": {
+  "primary": {
+   "id": "AV5PmZJIrrw",
+   "title": "How to PROPERLY Cable Crunch to Shape Your Abs (How to Kneeling Cable Abdominal Crunch)",
+   "channel": "Colossus Fitness"
+  },
+  "backup": {
+   "id": "aBd6T01PBqw",
+   "title": "How to PROPERLY Perform A Cable Crunch to Shape Your Abs (Kneeling Cable Abdominal Crunch)",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "overhead_press": {
+  "primary": {
+   "id": "_RlRDWO2jfg",
+   "title": "Build Bigger Shoulders With Perfect Training Technique (The Overhead Press)",
+   "channel": "Jeff Nippard"
+  },
+  "backup": {
+   "id": "QAQ64hK4Xxs",
+   "title": "How To Overhead Press For Bigger Shoulders (5 Mistakes You're Probably Making)",
+   "channel": "Jeremy Ethier"
+  }
+ },
+ "machine_shoulder_press": {
+  "primary": {
+   "id": "3R14MnZbcpw",
+   "title": "How to PROPERLY Shoulder Machine Press (LEARN FAST)",
+   "channel": "Colossus Fitness"
+  },
+  "backup": {
+   "id": "Wqq43dKW1TU",
+   "title": "How To: Overhead Press (Cybex)",
+   "channel": "ScottHermanFitness"
+  }
+ },
+ "incline_barbell_press": {
+  "primary": {
+   "id": "SrqOu55lrYU",
+   "title": "How To: Incline Barbell Bench Press | 3 GOLDEN RULES! (MADE BETTER!)",
+   "channel": "ScottHermanFitness"
+  },
+  "backup": {
+   "id": "5kyLUGVq_pk",
+   "title": "How to PROPERLY Incline Barbell Bench Press (FIX YOUR FORM NOW)",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "smith_incline_press": {
+  "primary": {
+   "id": "b8DqTO6ak0k",
+   "title": "How To: Smith Machine- Incline Bench Press",
+   "channel": "ScottHermanFitness"
+  },
+  "backup": {
+   "id": "EeLLZMdg6zI",
+   "title": "Smith Machine Incline Chest Press Tutorial",
+   "channel": "Prep Coach UK"
+  }
+ },
+ "machine_chest_press": {
+  "primary": {
+   "id": "SUdQ1roIWz0",
+   "title": "Get The Most Out Of Chest Machines | Targeting The Muscle",
+   "channel": "Renaissance Periodization"
+  },
+  "backup": {
+   "id": "P8Hx90LdGH4",
+   "title": "How to Use the Chest Press Machine (Proper Form)",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "pec_deck": {
+  "primary": {
+   "id": "H4mVGHaK2f4",
+   "title": "How to PERFECT The Pec Deck | (CHEST FLY MISTAKES & TIPS)",
+   "channel": "Colossus Fitness"
+  },
+  "backup": {
+   "id": "10hg4LAa7UQ",
+   "title": "How to Perform a Peck Deck Fly | Hunter Labrada",
+   "channel": "Hunter Labrada"
+  }
+ },
+ "cable_fly": {
+  "primary": {
+   "id": "8Um35Es-ROE",
+   "title": "How To: Cable Fly (High-To-Low) || 3 GOLDEN RULES",
+   "channel": "ScottHermanFitness"
+  },
+  "backup": {
+   "id": "hrh0K1Oo7Yc",
+   "title": "How to PROPERLY Cable Chest Fly (FIX THIS NOW!)",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "skull_crusher": {
+  "primary": {
+   "id": "RavQHfFxbdA",
+   "title": "How To: Skull Crusher (BUILD BIGGER TRICEPS!) || PERFECT FORM",
+   "channel": "ScottHermanFitness"
+  },
+  "backup": {
+   "id": "ZCSXngTm0ok",
+   "title": "How to PROPERLY Perform the Skull Crusher Exercise | Variation to Avoid Elbow Pain NOW!",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "pull_up": {
+  "primary": {
+   "id": "Hdc7Mw6BIEE",
+   "title": "The Best Way To Do Pull Ups For A Wide Back (Optimal Training Technique)",
+   "channel": "Jeff Nippard"
+  },
+  "backup": {
+   "id": "ylVmNQlKdAI",
+   "title": "How To: Pull Up | 3 GOLDEN RULES! (MADE BETTER!)",
+   "channel": "ScottHermanFitness"
+  }
+ },
+ "assisted_pull_up": {
+  "primary": {
+   "id": "gx0RWT7WbmA",
+   "title": "How To PROPERLY Use The Assisted Pull Up Machine (DO MORE PULL UPS)",
+   "channel": "Colossus Fitness"
+  },
+  "backup": {
+   "id": "wFj808u2HWU",
+   "title": "How To Use The Assisted Pull Up Machine",
+   "channel": "PureGym"
+  }
+ },
+ "one_arm_db_row": {
+  "primary": {
+   "id": "djKXLt7kv7Q",
+   "title": "How To Do Dumbbell Rows: Build a Thicker Back With Proper \"Cheating\"",
+   "channel": "Jeff Nippard"
+  },
+  "backup": {
+   "id": "pYcpY20QaE8",
+   "title": "How To: Dumbbell Bent-Over Row (Single-Arm)",
+   "channel": "ScottHermanFitness"
+  }
+ },
+ "straight_arm_pulldown": {
+  "primary": {
+   "id": "vJwAbr_pVVM",
+   "title": "How to PROPERLY Straight-Arm Lat Pulldown for Bigger Lats",
+   "channel": "Colossus Fitness"
+  },
+  "backup": {
+   "id": "soX7zhZ7yfQ",
+   "title": "Build your LATS with Straight Arm Pulldowns | Exercise Tutorial",
+   "channel": "Buff Dudes Workouts"
+  }
+ },
+ "reverse_pec_deck": {
+  "primary": {
+   "id": "6yMdhi2DVao",
+   "title": "How To Properly Use The Rear Delt Fly Machine (+ BONUS TIP)",
+   "channel": "Mind Pump TV"
+  },
+  "backup": {
+   "id": "dC7jhEk-29A",
+   "title": "How to PROPERLY Reverse Pec Deck Fly (DO THIS)",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "incline_db_curl": {
+  "primary": {
+   "id": "soxrZlIl35U",
+   "title": "How To: Seated Incline Dumbbell Bicep Curl",
+   "channel": "ScottHermanFitness"
+  },
+  "backup": {
+   "id": "PAnypqTfEuU",
+   "title": "How To Do The Incline Dumbbell Curl Correctly",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "cable_curl": {
+  "primary": {
+   "id": "2MUEL4nL6hA",
+   "title": "How to PROPERLY Cable Bicep Curl For Bigger Biceps (EASY FIX)",
+   "channel": "Colossus Fitness"
+  },
+  "backup": {
+   "id": "AsAVbj7puKo",
+   "title": "How To: Outside Grip Cable EZ-Curls (LF Cable)",
+   "channel": "ScottHermanFitness"
+  }
+ },
+ "trap_bar_deadlift": {
+  "primary": {
+   "id": "TU2xZ7s4jus",
+   "title": "The Trap Bar Deadlift",
+   "channel": "Alan Thrall (Untamed Strength)"
+  },
+  "backup": {
+   "id": "5BpuTmfQjro",
+   "title": "How to PROPERLY Trap Bar Deadlift (Avoid These 3 Common Mistakes)",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "deadlift": {
+  "primary": {
+   "id": "VL5Ab0T07e4",
+   "title": "Build A Bigger Deadlift With Perfect Technique (Conventional Form)",
+   "channel": "Jeff Nippard"
+  },
+  "backup": {
+   "id": "XxWcirHIwVo",
+   "title": "How to PROPERLY Deadlift for Growth (5 Easy Steps)",
+   "channel": "Jeremy Ethier"
+  }
+ },
+ "bulgarian_split_squat": {
+  "primary": {
+   "id": "2C-uNgKwPLE",
+   "title": "How To: Bulgarian Split Squat",
+   "channel": "ScottHermanFitness"
+  },
+  "backup": {
+   "id": "hPlKPjohFS0",
+   "title": "The PERFECT Bulgarian Split Squat (Avoid These Errors!)",
+   "channel": "Squat University"
+  }
+ },
+ "walking_lunge": {
+  "primary": {
+   "id": "_DLIS8SySzs",
+   "title": "How to PROPERLY Walking Dumbbell Lunge (FIX THIS NOW!)",
+   "channel": "Colossus Fitness"
+  },
+  "backup": {
+   "id": "Pbmj6xPo-Hw",
+   "title": "Walking Lunges Exercise Tutorial | Build Legendary Legs & Cardio",
+   "channel": "Buff Dudes Workouts"
+  }
+ },
+ "leg_extension": {
+  "primary": {
+   "id": "ljO4jkwv8wQ",
+   "title": "How To Do Leg Extensions With Perfect Technique (Grow Every Quad Head)",
+   "channel": "Jeff Nippard"
+  },
+  "backup": {
+   "id": "YyvSfVjQeL0",
+   "title": "How To: Leg Extension (Cybex)",
+   "channel": "ScottHermanFitness"
+  }
+ },
+ "seated_leg_curl": {
+  "primary": {
+   "id": "ELOCsoDSmrg",
+   "title": "How To: Seated Leg Curl (Cybex)",
+   "channel": "ScottHermanFitness"
+  },
+  "backup": {
+   "id": "Wy1SwoY2aaQ",
+   "title": "How to PROPERLY Seated Hamstring Curl (FIX THIS NOW)",
+   "channel": "Colossus Fitness"
+  }
+ },
+ "hip_thrust": {
+  "primary": {
+   "id": "xDmFkJxPzeM",
+   "title": "How To Build Great Glutes with Perfect Hip Thrust Technique (Fix Mistakes!)",
+   "channel": "Jeff Nippard"
+  },
+  "backup": {
+   "id": "kqi4_EPpwCk",
+   "title": "How To Do Hip Thrusts The Right Way",
+   "channel": "Renaissance Periodization"
+  }
+ },
+ "seated_calf_raise": {
+  "primary": {
+   "id": "6O5hh1rBtx8",
+   "title": "How to PROPERLY Calf Raise (SEATED CALF RAISE TIPS)",
+   "channel": "Colossus Fitness"
+  },
+  "backup": {
+   "id": "E4ktXrJZUMg",
+   "title": "Seated Calf Raise - The Proper Lift - BPI Sports",
+   "channel": "BPI Sports"
+  }
+ },
+ "hanging_knee_raise": {
+  "primary": {
+   "id": "X-ACS9vpRyU",
+   "title": "How To: Hanging Knee / Leg Raise | BUILD A “SCIENCED BASED” 6-PACK!",
+   "channel": "ScottHermanFitness"
+  },
+  "backup": {
+   "id": "Pr1ieGZ5atk",
+   "title": "Hanging Leg Raise | HOW-TO",
+   "channel": "ATHLEAN-X™"
+  }
+ },
+ "incline_treadmill_walk": {
+  "primary": {
+   "id": "NAsObfFJXvE",
+   "title": "How To: Incline Treadmill Walk (12-3-30 Workout)",
+   "channel": "Live Lean TV Daily Exercises"
+  },
+  "backup": {
+   "id": "OnPy4lHgU5s",
+   "title": "Treadmill Settings To Get Shredded",
+   "channel": "Paul Revelia"
+  }
+ }
+};
