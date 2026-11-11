@@ -38,6 +38,7 @@ export function stats(state, iso) {
   const mode = goalReached || plan.week?.calories === 'maintenance' ? 'maintenance' : 'deficit';
   const targets = computeTargets({
     tdee, bf: bodyFat.bf, lbm: bodyFat.lbm, weightKg, mode, kcalOffset: state.kcalOffset ?? 0,
+    pace: p.pace ?? 'balanced',
   });
   return {
     weightKg, avg, waist, neck, hip, arm, bodyFat, bmr, tdee,

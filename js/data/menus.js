@@ -43,12 +43,12 @@ export const MENUS = [
   },
   { // 2 Tuesday — Push B
     name: 'التلات',
-    note: 'أومليت الصبح، وكفتة بالمكرونة على الغدا، وكبدة فراخ بالليل.',
+    note: 'أومليت الصبح، وكفتة بالمكرونة على الغدا، وفاهيتا فراخ بالفلفل الرومي في عيش بلدي بالليل.',
     meals: [
       { key: 'breakfast', items: [['egg', 150, 'protein'], ['egg_white', 99, 'protein'], ['olive_oil', 4.5, 'fixed'], ['baladi', 45, 'carb'], ['tomato', 120, 'fixed'], ['cucumber', 100, 'fixed']] },
       { key: 'lunch', items: [['kofta95', 180, 'protein'], ['pasta', 180, 'carb'], ['salad', 150, 'fixed']] },
       { key: 'snack', items: [['qareesh', 200, 'protein'], ['apple', 182, 'fixed']] },
-      { key: 'dinner', items: [['chicken_liver', 150, 'protein'], ['baladi', 90, 'carb'], ['salad', 150, 'fixed'], ['olive_oil', 4.5, 'fixed']] },
+      { key: 'dinner', items: [['chicken_breast', 180, 'protein'], ['bell_pepper', 150, 'fixed'], ['onion', 50, 'fixed'], ['olive_oil', 4.5, 'fixed'], ['baladi', 90, 'carb']] },
       MILK, TEA,
     ],
   },
@@ -65,10 +65,10 @@ export const MENUS = [
   },
   { // 4 Thursday — Legs B
     name: 'الخميس',
-    note: 'ورك فراخ برز وبسلة على الغدا، وبلطي ببطاطا بالليل.',
+    note: 'فاهيتا لحمة بالفلفل الرومي والبصل مع رز على الغدا، وبلطي ببطاطا بالليل.',
     meals: [
       FUL_BREAKFAST,
-      { key: 'lunch', items: [['chicken_thigh', 200, 'protein'], ['rice', 150, 'carb'], ['peas_carrots', 200, 'fixed']] },
+      { key: 'lunch', items: [['beef_lean', 180, 'protein'], ['bell_pepper', 150, 'fixed'], ['onion', 50, 'fixed'], ['olive_oil', 9, 'fixed'], ['rice', 150, 'carb'], ['salad', 100, 'fixed']] },
       { key: 'snack', items: [['tuna_water', 85, 'protein'], ['cucumber', 100, 'fixed'], ['banana', 118, 'fixed']] },
       { key: 'dinner', items: [['tilapia', 200, 'protein'], ['sweet_potato', 200, 'carb'], ['salad', 150, 'fixed'], ['olive_oil', 4.5, 'fixed']] },
       MILK, TEA,

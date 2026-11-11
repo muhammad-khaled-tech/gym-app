@@ -346,3 +346,16 @@ summary { cursor: pointer; color: var(--red); font-weight: 700; font-size: .9rem
 .welcome .logo-mark .ic { width: 34px; height: 34px; }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; }
 .form-grid .field:first-child { grid-column: 1 / -1; }
+
+/* today: whole-day table grouped by meal */
+.today-table col.c-name { width: 44%; }
+.today-table col.c-amt { width: 24%; }
+.today-table .grp-head td { padding: 12px 0 6px; border-bottom: 1px solid var(--line); text-align: start; }
+.today-table tbody.grp:first-of-type .grp-head td { padding-top: 4px; }
+.grp-row { display: flex; align-items: center; gap: 8px; }
+.grp-row b { font-size: .95rem; }
+.grp-k { color: var(--muted); font-size: .78rem; white-space: nowrap; }
+.grp-k .num { font-size: .95rem; }
+.today-table .check { width: 40px; height: 40px; }
+.today-table tbody.done td:not(.grp-head td) { color: var(--faint); }
+.today-table tbody.done .grp-row b { text-decoration: line-through; color: var(--faint); }

@@ -42,6 +42,17 @@ test('BMR and targets', () => {
   assert.equal(deficitPct(29.9), 0.20);
   assert.equal(deficitPct(20), 0.175);
   assert.equal(deficitPct(12), 0.125);
+  // 'fast' pace: one step bigger deficit, still capped at 750 kcal/day
+  assert.equal(deficitPct(29.9, 'fast'), 0.25);
+  assert.equal(deficitPct(20, 'fast'), 0.20);
+  assert.equal(deficitPct(12, 'fast'), 0.15);
+  const fast = computeTargets({ tdee: 2611, bf: 29.9, lbm: 66.6, weightKg: 95, mode: 'deficit', pace: 'fast' });
+  assert.equal(fast.kcal, 1950);
+  assert.equal(fast.protein, 175); // protein stays high when the deficit grows
+  const capped = computeTargets({ tdee: 3600, bf: 35, lbm: 80, weightKg: 125, mode: 'deficit', pace: 'fast' });
+  assert.equal(capped.kcal, 2850); // 25% would be 900, cap is 750
+  const fastMaint = computeTargets({ tdee: 2611, bf: 29.9, lbm: 66.6, weightKg: 95, mode: 'maintenance', pace: 'fast' });
+  assert.equal(fastMaint.kcal, 2600); // pace never touches maintenance weeks
   const t = computeTargets({ tdee: 1898.75 * 1.375, bf, lbm, weightKg: 95, mode: 'deficit' });
   assert.equal(t.kcal, 2100);
   assert.equal(t.protein, 175);

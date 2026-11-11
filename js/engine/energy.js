@@ -17,25 +17,28 @@ export function bmr({ weightKg, height, age, bf, lbm }) {
   return bf < 15 ? katch(lbm) : mifflinMale({ weightKg, height, age });
 }
 
-export function deficitPct(bf) {
-  if (bf >= 25) return 0.20;
-  if (bf >= 15) return 0.175;
-  return 0.125;
+/** Deficit as a share of TDEE. pace 'fast' = one step bigger (plan: 25% allowed above 25% fat when speed matters). */
+export function deficitPct(bf, pace = 'balanced') {
+  const fast = pace === 'fast';
+  if (bf >= 25) return fast ? 0.25 : 0.20;
+  if (bf >= 15) return fast ? 0.20 : 0.175;
+  return fast ? 0.15 : 0.125;
 }
 
 const round50 = (x) => Math.round(x / 50) * 50;
 
 /**
  * mode: 'deficit' | 'maintenance'. kcalOffset: user-applied correction (e.g. -150).
+ * pace: 'balanced' (default) | 'fast' (bigger deficit, same 750 kcal cap).
  * Returns grams for protein/fat/carbs.
  */
-export function computeTargets({ tdee, bf, lbm, weightKg, mode = 'deficit', kcalOffset = 0 }) {
+export function computeTargets({ tdee, bf, lbm, weightKg, mode = 'deficit', kcalOffset = 0, pace = 'balanced' }) {
   let kcal;
   let deficit = 0;
   if (mode === 'maintenance') {
     kcal = round50(tdee) + kcalOffset;
   } else {
-    deficit = Math.min(tdee * deficitPct(bf), 750);
+    deficit = Math.min(tdee * deficitPct(bf, pace), 750);
     kcal = round50(tdee - deficit) + kcalOffset;
   }
   kcal = Math.max(kcal, MIN_KCAL);

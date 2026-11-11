@@ -33,6 +33,12 @@ export function programFields(p = {}) {
         <option value="1.375" ${!p.pal || p.pal === 1.375 ? 'selected' : ''}>شغل مكتبي + جيم (الأنسب ليك)</option>
         <option value="1.55" ${p.pal === 1.55 ? 'selected' : ''}>شغل فيه حركة ووقوف كتير</option>
       </select></label>
+    <label class="field"><span>سرعة التنشيف</span>
+      <select name="pace">
+        <option value="balanced" ${p.pace !== 'fast' ? 'selected' : ''}>متوازن: عجز 20% (أحسن لبناء العضل)</option>
+        <option value="fast" ${p.pace === 'fast' ? 'selected' : ''}>أسرع: عجز 25% (نزول أسرع، أقصى حد آمن)</option>
+      </select>
+      <small>العجز مش بيعدّي 750 سعر في اليوم في الحالتين، والبروتين بيفضل عالي.</small></label>
     <label class="field"><span>مدة البرنامج</span>
       <select name="weeksPreset" data-change="weeks-preset">
         <option value="12" ${preset === '12' ? 'selected' : ''}>3 شهور (12 أسبوع)</option>
@@ -54,6 +60,7 @@ export function readProgram(form) {
   const totalWeeks = preset === 'custom' ? Math.round(num(f.get('totalWeeks')) ?? 12) : Number(preset);
   return {
     pal: Number(f.get('pal')),
+    pace: f.get('pace') === 'fast' ? 'fast' : 'balanced',
     totalWeeks: Math.min(104, Math.max(2, totalWeeks)),
     startDate: f.get('startDate') || todayISO(),
     targetBf: num(f.get('targetBf')) ?? 20,

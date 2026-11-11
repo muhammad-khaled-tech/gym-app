@@ -24,6 +24,15 @@ test('stats for the reference example on day 1', () => {
   assert.equal(programEnd(refState().profile), '2027-02-02');
 });
 
+test('fast pace lowers calories but keeps protein', () => {
+  const s = refState();
+  s.profile.pace = 'fast';
+  const st = stats(s, '2026-11-11');
+  assert.equal(st.targets.kcal, 1950);
+  assert.equal(st.targets.protein, 175);
+  assert.equal(stats(s, '2026-12-23').targets.kcal, 2600); // deload week still at maintenance
+});
+
 test('deload week switches to maintenance calories', () => {
   const st = stats(refState(), '2026-12-23'); // week 7
   assert.equal(st.plan.week.phase, 'deload');

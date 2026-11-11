@@ -1,11 +1,12 @@
-// "Today": program status, calorie ring + macros, workout CTA, meal timeline, steps, weight.
+// "Today": program status, calorie ring + macros, workout CTA, day meal table, steps, weight.
 import { esc, n0, n1, bar, num } from './dom.js';
 import { icon } from './icons.js';
 import { stats, menuFor, eatenTotals, adviceFor, programEnd } from '../model.js';
 import { MEAL_NAMES } from '../data/menus.js';
 import { SESSIONS } from '../data/exercises.js';
 import { PHASE_AR, stepsTarget } from '../engine/program.js';
-import { itemLabel } from './meals.js';
+import { formatAmount, totals } from '../engine/menu.js';
+import { FOODS } from '../data/foods.js';
 import { todayISO, formatShort, diffDays } from '../engine/dates.js';
 import { dayLog, upsertByDate } from '../store.js';
 
@@ -69,18 +70,32 @@ export function render(ctx) {
   const advice = st.plan.inProgram ? adviceFor(s, iso, st) : null;
   const applied = s.adviceAppliedOn && diffDays(s.adviceAppliedOn, iso) < 14;
 
-  const meals = day.meals.map((m, i) => {
+  const rows = day.meals.map((m, i) => {
     const done = log.eaten?.includes(i);
     const time = s.settings.mealTimes[m.key];
-    const items = m.items.map((it) => itemLabel(it.food, it.g).replace(/<\/?b>/g, '')).join('، ');
+    const items = m.items.map((it) => {
+      const t = totals([it]);
+      return `<tr class="${done ? 'done' : ''}"><td>${esc(FOODS[it.food].name.split(' (')[0])}</td><td class="amt">${esc(formatAmount(it.food, it.g))}</td>
+        <td class="n">${n0(t.kcal)}</td><td class="n p">${n0(t.p)}</td></tr>`;
+    }).join('');
     return `
-      <li class="tl-row ${done ? 'done' : ''}">
-        <span class="tl-time">${esc(time ?? '—')}</span>
-        <div class="grow"><div class="name">${esc(MEAL_NAMES[m.key])}</div><div class="sub">${items}</div></div>
-        <div class="kc"><b>${n0(m.totals.kcal)}</b> سعر<br><span class="good">${n0(m.totals.p)} جم</span></div>
-        <button class="check" data-act="toggle-meal" data-i="${i}" aria-label="أكلت ${esc(MEAL_NAMES[m.key])}">${icon('check')}</button>
-      </li>`;
+      <tbody class="grp ${done ? 'done' : ''}">
+        <tr class="grp-head"><td colspan="4"><div class="grp-row">
+          ${time ? `<span class="time">${esc(time)}</span>` : ''}<b class="grow">${esc(MEAL_NAMES[m.key].split(' (')[0])}</b>
+          <span class="grp-k"><span class="num">${n0(m.totals.kcal)}</span> سعر · <span class="num good">${n0(m.totals.p)}</span> جم</span>
+          <button class="check" data-act="toggle-meal" data-i="${i}" aria-label="أكلت ${esc(MEAL_NAMES[m.key])}">${icon('check')}</button>
+        </div></td></tr>
+        ${items}
+      </tbody>`;
   }).join('');
+  const dt = day.totals;
+  const meals = `
+    <table class="food-table today-table">
+      <colgroup><col class="c-name"><col class="c-amt"><col><col></colgroup>
+      <thead><tr><th>الصنف</th><th>الكمية</th><th>سعرات</th><th>بروتين</th></tr></thead>
+      ${rows}
+      <tfoot><tr><td colspan="2">مجموع اليوم</td><td class="n">${n0(dt.kcal)}</td><td class="n p">${n0(dt.p)}</td></tr></tfoot>
+    </table>`;
 
   const workout = session
     ? `<button class="workout-cta" data-act="tab" data-tab="workout" data-date="${iso}">
@@ -113,8 +128,8 @@ export function render(ctx) {
     ${adviceCard(advice, applied)}
 
     <section class="card">
-      <div class="card-head"><h2>${icon('utensils')}وجبات النهارده</h2><button class="btn small soft" data-act="tab" data-tab="meals">الجدول ${icon('chevronLeft')}</button></div>
-      <ul class="timeline">${meals}</ul>
+      <div class="card-head"><h2>${icon('utensils')}أكل النهارده</h2><button class="btn small soft" data-act="tab" data-tab="meals">${icon('swap')}بدّل</button></div>
+      ${meals}
       ${(log.extras ?? []).length ? `<p class="muted small">+ ${log.extras.length} أكلة برا الجدول</p>` : ''}
     </section>
 
