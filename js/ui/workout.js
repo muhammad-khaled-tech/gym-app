@@ -62,13 +62,14 @@ export function render(ctx) {
   const week = st.plan.week;
   const steps = stepsTarget(Math.max(1, st.plan.weekNumber));
   const phaseNote = week
-    ? [week.phase === 'ramp' && 'خليك محافظ: الهدف إن المفاصل تتعود.',
+    ? [week.phase === 'intro' && 'تمرين خفيف للجسم كله عشان ترجع للجيم قبل ما البرنامج يبدأ السبت. اختار أوزان سهلة وركّز على التكنيك.',
+      week.phase === 'ramp' && 'خليك محافظ: الهدف إن المفاصل تتعود.',
       week.phase === 'deload' && 'أسبوع خفيف: قلّل الأوزان 10% وكُل على قد حرقك.',
       week.extraSetFirst && 'زوّد مجموعة على أول تمرين.',
       week.phase === 'test' && 'أسبوع القياس: قيس كل حاجة وصوّر.'].filter(Boolean).join(' ')
     : '';
   const phase = week
-    ? `<span class="pill">${icon('calendar')}الأسبوع ${st.plan.weekNumber} · ${PHASE_AR[week.phase]}</span>
+    ? `<span class="pill">${icon('calendar')}${week.phase === 'intro' ? 'قبل البرنامج' : `الأسبوع ${st.plan.weekNumber}`} · ${PHASE_AR[week.phase]}</span>
        <p class="muted small" style="margin-top:8px">${week.sets} مجموعات لكل تمرين · RIR ${week.rir} في التمارين الكبيرة و${week.isoRir} في العزل. ${phaseNote}</p>`
     : '<p class="muted">التاريخ ده برا مدة البرنامج.</p>';
   if (!session) {

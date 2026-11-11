@@ -139,4 +139,9 @@ export const SESSIONS = {
     E('seated_leg_curl', '10–15'), E('hip_thrust', '8–12'), E('seated_calf_raise', '12–20'), E('hanging_knee_raise', '10–15')] },
 };
 
+// Intro days before the program starts: one easy full-body session, mostly machines.
+SESSIONS.fullBody = { name: 'Full Body', ar: 'فول بادي تمهيدي', exercises: [
+  E('leg_press', '10–12'), E('machine_chest_press', '10–12'), E('lat_pulldown', '10–12'), E('seated_cable_row', '10–12'),
+  E('lying_leg_curl', '10–15'), E('lateral_raise', '12–15'), E('cable_crunch', '10–15')] };
+
 export const SESSION_NAMES = Object.fromEntries(Object.entries(SESSIONS).map(([k, s]) => [k, s.name]));

@@ -48,3 +48,23 @@ export function formatShort(iso) {
   const d = fromISO(iso);
   return `${d.getDate()}/${d.getMonth() + 1}`;
 }
+
+export const MONTHS_AR = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+
+/** Calendar rows (Saturday..Friday, Egyptian week) covering the month. month0 is 0-based. */
+export function monthMatrix(year, month0) {
+  const first = toISO(new Date(year, month0, 1));
+  let d = addDays(first, -((weekday(first) + 1) % 7));
+  const weeks = [];
+  do {
+    const w = [];
+    for (let i = 0; i < 7; i++) { w.push(d); d = addDays(d, 1); }
+    weeks.push(w);
+  } while (fromISO(d).getMonth() === month0);
+  return weeks;
+}
+
+export function formatLong(iso) {
+  const d = fromISO(iso);
+  return `${dayNameAr(iso)} ${d.getDate()} ${MONTHS_AR[d.getMonth()]}`;
+}

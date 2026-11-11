@@ -7,12 +7,12 @@ import { SESSIONS } from '../data/exercises.js';
 import { PHASE_AR, stepsTarget } from '../engine/program.js';
 import { formatAmount, totals } from '../engine/menu.js';
 import { FOODS } from '../data/foods.js';
-import { todayISO, formatShort, diffDays } from '../engine/dates.js';
+import { todayISO, formatShort, formatLong, diffDays } from '../engine/dates.js';
 import { dayLog, upsertByDate } from '../store.js';
 
 export function statusLine(st, profile) {
   const w = st.plan.weekNumber;
-  if (w < 1) return `البرنامج هيبدأ يوم ${formatShort(profile.startDate)}`;
+  if (w < 1) return `قبل البرنامج · بيبدأ ${formatLong(profile.startDate)}`;
   if (w > profile.totalWeeks) return 'خلّصت البرنامج، ابدأ مرحلة جديدة من الإعدادات';
   return `الأسبوع ${w} من ${profile.totalWeeks} · ${PHASE_AR[st.plan.week.phase]}`;
 }
@@ -107,6 +107,7 @@ export function render(ctx) {
   return `
     <section class="card">
       <span class="pill">${icon('calendar')}${esc(statusLine(st, s.profile))}</span>
+      ${st.plan.preStart ? `<p class="muted small" style="margin-top:8px">النهارده ${st.plan.sessionKey === 'rest' ? 'راحة' : 'فول بادي تمهيدي'}، والأكل ماشي على الخطة من دلوقتي.</p>` : ''}
       ${st.plan.inProgram ? `<p class="muted small" style="margin-top:8px">فاضل ${left} يوم${st.mode === 'maintenance' ? ' · الأسبوع ده أكل صيانة' : ''}${st.goalReached ? ' · وصلت للنسبة المستهدفة' : ''}</p>` : ''}
       <div class="hero-grid">
         ${ring(eaten.kcal, t.kcal)}

@@ -1,7 +1,7 @@
 // App state in localStorage (one JSON object). Never throws: storage failures are reported.
 
 const KEY = 'gymapp.v1';
-export const SCHEMA = 2; // 2: default pace became 'fast' (25% deficit)
+export const SCHEMA = 3; // 2: default pace 'fast' (25% deficit). 3: start moved to Saturday 14/11.
 
 export const DEFAULT_MEAL_TIMES = {
   breakfast: '09:00', lunch: '14:00', snack: '17:30', dinner: '21:30', night: '23:30',
@@ -29,6 +29,9 @@ function migrate(s) {
   out.settings.mealTimes = { ...DEFAULT_MEAL_TIMES, ...(out.settings.mealTimes ?? {}) };
   // schema 1 -> 2: the user asked for the 25% deficit by default (2026-11-11).
   if ((s.schema ?? 1) < 2 && out.profile) out.profile = { ...out.profile, pace: 'fast' };
+  // schema 2 -> 3: the user chose to start on Saturday 2026-11-14 (Wed/Thu before it are intro full body).
+  const sd = out.profile?.startDate;
+  if ((s.schema ?? 1) < 3 && sd && sd >= '2026-11-09' && sd <= '2026-11-13') out.profile = { ...out.profile, startDate: '2026-11-14' };
   out.schema = SCHEMA;
   return out;
 }

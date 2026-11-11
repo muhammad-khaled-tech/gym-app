@@ -8,13 +8,15 @@ import * as Meals from './ui/meals.js';
 import * as Workout from './ui/workout.js';
 import * as Progress from './ui/progress.js';
 import * as Settings from './ui/settings.js';
+import * as Plan from './ui/plan.js';
 
-const VIEWS = { today: Today, meals: Meals, workout: Workout, progress: Progress, settings: Settings };
-const MODULES = [Onboarding, Today, Meals, Workout, Progress, Settings];
+const VIEWS = { today: Today, meals: Meals, workout: Workout, plan: Plan, progress: Progress, settings: Settings };
+const MODULES = [Onboarding, Today, Meals, Workout, Plan, Progress, Settings];
 
 const actions = Object.assign({}, ...MODULES.map((m) => m.actions ?? {}), {
   tab: (el, ctx) => {
     if (el.dataset.date) ctx.iso = el.dataset.date;
+    if (el.dataset.tab === 'plan') ctx.ui.calMonth = ctx.iso.slice(0, 7);
     ctx.go(el.dataset.tab);
     return false;
   },
@@ -58,12 +60,13 @@ const TABS = [
   ['today', 'home', 'النهارده'],
   ['meals', 'utensils', 'الأكل'],
   ['workout', 'dumbbell', 'التمرين'],
+  ['plan', 'calendar', 'الخطة'],
   ['progress', 'chart', 'التقدم'],
-  ['settings', 'sliders', 'الإعدادات'],
 ];
 
 function renderChrome() {
   document.getElementById('logo-mark').innerHTML = icon('dumbbell');
+  document.getElementById('top-settings').innerHTML = icon('sliders');
   const t = todayISO();
   document.getElementById('top-date').textContent = `${dayNameAr(t)} ${formatShort(t)}`;
   document.getElementById('nav').innerHTML = TABS.map(([tab, ic, label]) =>
@@ -77,10 +80,12 @@ function render() {
   try {
     if (!ctx.state.profile) {
       nav.hidden = true;
+      document.getElementById('top-settings').hidden = true;
       root.innerHTML = Onboarding.render(ctx);
       return;
     }
     nav.hidden = false;
+    document.getElementById('top-settings').hidden = false;
     root.innerHTML = VIEWS[ctx.tab].render(ctx);
     for (const b of nav.querySelectorAll('[data-tab]')) b.classList.toggle('active', b.dataset.tab === ctx.tab);
     const chip = root.querySelector('.chips .chip.active');

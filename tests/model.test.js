@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { defaultState, importJSON, exportJSON, upsertByDate } from '../js/store.js';
+import { defaultState, importJSON, exportJSON, upsertByDate, SCHEMA } from '../js/store.js';
 import { stats, menuFor, eatenTotals, lastSets, progressionHint, programEnd } from '../js/model.js';
 
 // Reference example from the research report (not a real person's data).
@@ -36,10 +36,19 @@ test('schema 1 data moves to the fast pace once', () => {
   s.profile.pace = 'balanced';
   const migrated = importJSON(JSON.stringify(s));
   assert.equal(migrated.profile.pace, 'fast');
-  assert.equal(migrated.schema, 2);
+  assert.equal(migrated.schema, SCHEMA);
   // a later deliberate choice of 'balanced' (schema 2) is kept
   const again = importJSON(JSON.stringify({ ...migrated, profile: { ...migrated.profile, pace: 'balanced' } }));
   assert.equal(again.profile.pace, 'balanced');
+});
+
+test('schema 2 data starting this week moves its start to Saturday 14/11', () => {
+  const s = refState();
+  s.schema = 2;
+  s.profile.startDate = '2026-11-11';
+  assert.equal(importJSON(JSON.stringify(s)).profile.startDate, '2026-11-14');
+  s.profile.startDate = '2026-12-01'; // a different, deliberate date is kept
+  assert.equal(importJSON(JSON.stringify(s)).profile.startDate, '2026-12-01');
 });
 
 test('fast pace lowers calories but keeps protein', () => {

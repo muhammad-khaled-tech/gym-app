@@ -97,3 +97,15 @@ test('advice rules', () => {
   for (let i = 0; i <= 28; i++) good.push({ date: addDays(start, i), kg: 100 - 0.1 * i });
   assert.equal(advice({ weights: good, waists, endIso: addDays(start, 28), weekNumber: 5 }).type, 'on-track');
 });
+
+test('month matrix starts on Saturday and covers the month', async () => {
+  const { monthMatrix } = await import('../js/engine/dates.js');
+  const nov = monthMatrix(2026, 10); // November 2026
+  assert.equal(nov[0][0], '2026-10-31'); // Saturday before Sun 1 Nov
+  assert.ok(nov.every((w) => w.length === 7));
+  assert.equal(nov.flat().includes('2026-11-30'), true);
+  assert.equal(nov[nov.length - 1][6] >= '2026-11-30', true);
+  for (const w of nov) assert.equal(weekday(w[0]), 6); // every row starts Saturday
+  const feb = monthMatrix(2027, 1);
+  assert.ok(feb.flat().includes('2027-02-01') && feb.flat().includes('2027-02-28'));
+});

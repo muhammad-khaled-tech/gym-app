@@ -56,3 +56,19 @@ test('day plan maps weekday to session', () => {
   assert.equal(after.inProgram, false);
   assert.equal(after.week, null);
 });
+
+test('days before the start are an intro full-body block (Friday stays rest)', () => {
+  const wed = dayPlan({ startIso: '2026-11-14', totalWeeks: 12, iso: '2026-11-11' });
+  assert.equal(wed.sessionKey, 'fullBody');
+  assert.equal(wed.week.phase, 'intro');
+  assert.equal(wed.week.sets, 2);
+  assert.equal(wed.inProgram, false);
+  const thu = dayPlan({ startIso: '2026-11-14', totalWeeks: 12, iso: '2026-11-12' });
+  assert.equal(thu.sessionKey, 'fullBody');
+  const fri = dayPlan({ startIso: '2026-11-14', totalWeeks: 12, iso: '2026-11-13' });
+  assert.equal(fri.sessionKey, 'rest');
+  const sat = dayPlan({ startIso: '2026-11-14', totalWeeks: 12, iso: '2026-11-14' });
+  assert.equal(sat.sessionKey, 'pushA');
+  assert.equal(sat.weekNumber, 1);
+  assert.equal(sat.week.phase, 'ramp');
+});

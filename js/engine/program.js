@@ -15,6 +15,7 @@ const PHASES = {
 };
 
 export const PHASE_AR = {
+  intro: 'تمهيدي: فول بادي',
   ramp: 'رجوع وتظبيط تكنيك',
   build: 'بناء',
   push: 'ضغط',
@@ -49,9 +50,18 @@ export function stepsTarget(week) {
   return { min: 9000, max: 10000 };
 }
 
+/** Days before the start: easy full-body sessions to get back into the gym (Friday stays rest). */
+export const INTRO = {
+  week: 0, phase: 'intro', sets: 2, rir: '3–4', isoRir: '3–4', extraSetFirst: false, calories: 'deficit', loadNote: '',
+};
+
 export function dayPlan({ startIso, totalWeeks, iso }) {
   const weekNumber = weekNo(startIso, iso);
-  const inProgram = weekNumber >= 1 && weekNumber <= totalWeeks;
+  const key = SESSION_BY_WEEKDAY[weekday(iso)];
+  if (weekNumber < 1) {
+    return { weekNumber, inProgram: false, preStart: true, week: INTRO, sessionKey: key === 'rest' ? 'rest' : 'fullBody' };
+  }
+  const inProgram = weekNumber <= totalWeeks;
   const week = inProgram ? buildProgram(totalWeeks)[weekNumber - 1] : null;
-  return { weekNumber, inProgram, week, sessionKey: SESSION_BY_WEEKDAY[weekday(iso)] };
+  return { weekNumber, inProgram, preStart: false, week, sessionKey: key };
 }
