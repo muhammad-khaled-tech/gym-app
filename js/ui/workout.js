@@ -1,7 +1,7 @@
 // "Workout": the day's session with phase-aware sets/RIR, videos, cues, and set logging.
 import { esc, num, videoBlock, iframeFor } from './dom.js';
 import { icon } from './icons.js';
-import { weekChips } from './weekchips.js';
+import { weekNav } from './weekchips.js';
 import { stats, lastSets, progressionHint } from '../model.js';
 import { SESSIONS, EXERCISES } from '../data/exercises.js';
 import { PHASE_AR, stepsTarget } from '../engine/program.js';
@@ -73,7 +73,7 @@ export function render(ctx) {
        <p class="muted small" style="margin-top:8px">${week.sets} مجموعات لكل تمرين · RIR ${week.rir} في التمارين الكبيرة و${week.isoRir} في العزل. ${phaseNote}</p>`
     : '<p class="muted">التاريخ ده برا مدة البرنامج.</p>';
   if (!session) {
-    return `${weekChips(ctx.iso)}
+    return `${weekNav(s.profile, ctx.iso)}
       <section class="card"><div class="card-head"><h2>${icon('moon')}يوم راحة</h2></div>${phase}
         <p>مشي 45–60 دقيقة على راحتك. هدف الخطوات: <span class="num">${steps.min === steps.max ? steps.min : `${steps.min}–${steps.max}`}</span>.</p></section>`;
   }
@@ -81,7 +81,7 @@ export function render(ctx) {
     ? `<section class="card"><div class="card-head"><h2>${icon('activity')}كارديو بعد التمرين</h2><span class="tag-sm">اختياري</span></div><p class="muted">15–20 دقيقة مشي على مشاية مايلة: ميل 8–12% وسرعة 4.5–5.5 كم/س. بلاش جري.</p></section>`
     : '';
   return `
-    ${weekChips(ctx.iso)}
+    ${weekNav(s.profile, ctx.iso)}
     <section class="card">
       <div class="muted small">${esc(session.name)}</div>
       <h1 style="margin-bottom:8px">${esc(session.ar)}</h1>

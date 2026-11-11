@@ -1,7 +1,7 @@
 // "Meals": detailed per-day tables (tap a row to swap), a full weekly table, and off-plan logging.
 import { esc, n0, num } from './dom.js';
 import { icon } from './icons.js';
-import { weekChips, weekDates } from './weekchips.js';
+import { weekNav, weekDates } from './weekchips.js';
 import { stats, menuFor, eatenTotals } from '../model.js';
 import { MEAL_NAMES } from '../data/menus.js';
 import { FOODS, FOOD_GROUPS_AR } from '../data/foods.js';
@@ -128,7 +128,7 @@ function dayView(ctx) {
   }).join('');
   const d = day.totals;
   return `
-    ${weekChips(iso)}
+    ${weekNav(s.profile, iso)}
     <section class="card">
       <div class="card-head"><h2>${icon('flame')}مجموع ${esc(dayNameAr(iso))}</h2><span class="muted small">اتاكل ${n0(eaten.kcal)} سعر</span></div>
       <div class="day-sum">
@@ -150,22 +150,23 @@ function weekView(ctx) {
   const dates = weekDates(ctx.iso);
   const today = todayISO();
   const days = dates.map((d) => ({ d, day: menuFor(s, d) }));
-  const head = days.map(({ d }) => `<th class="${d === today ? 'today' : ''}">${dayNameAr(d)}<small>${formatShort(d)}</small></th>`).join('');
+  const head = days.map(({ d }) => `<th class="${d === today ? 'today' : ''}${d === ctx.iso ? ' sel' : ''}"><button class="th-btn" data-act="meals-open-day" data-date="${d}">${dayNameAr(d)}<small>${formatShort(d)}</small></button></th>`).join('');
   const rows = MEAL_ORDER.map((key) => {
-    const cells = days.map(({ day }) => {
+    const cells = days.map(({ d, day }) => {
+      const sel = d === ctx.iso ? ' class="sel"' : '';
       const m = day.meals.find((x) => x.key === key);
-      if (!m) return '<td class="muted">—</td>';
+      if (!m) return `<td${sel}><span class="muted">—</span></td>`;
       const items = m.items.map((it) => `<li>${itemLabel(it.food, it.g)}</li>`).join('');
-      return `<td><ul>${items}</ul><div class="cell-k">${n0(m.totals.kcal)} سعر · ${n0(m.totals.p)} جم</div></td>`;
+      return `<td${sel}><ul>${items}</ul><div class="cell-k">${n0(m.totals.kcal)} سعر · ${n0(m.totals.p)} جم</div></td>`;
     }).join('');
     const time = s.settings.mealTimes[key];
     return `<tr><th class="sticky">${esc(MEAL_NAMES[key].split(' (')[0])}${time ? `<small>${esc(time)}</small>` : ''}</th>${cells}</tr>`;
   }).join('');
-  const foot = days.map(({ day }) => `<td><span class="num">${n0(day.totals.kcal)}</span> سعر<br><span class="num good">${n0(day.totals.p)}</span> جم بروتين<br><span class="muted">${n0(day.totals.c)} كارب · ${n0(day.totals.f)} دهون</span></td>`).join('');
+  const foot = days.map(({ d, day }) => `<td${d === ctx.iso ? ' class="sel"' : ''}><span class="num">${n0(day.totals.kcal)}</span> سعر<br><span class="num good">${n0(day.totals.p)}</span> جم بروتين<br><span class="muted">${n0(day.totals.c)} كارب · ${n0(day.totals.f)} دهون</span></td>`).join('');
   return `
-    ${weekChips(ctx.iso)}
+    ${weekNav(s.profile, ctx.iso, { dayAct: 'meals-open-day' })}
     <section class="card">
-      <div class="card-head"><h2>${icon('table')}جدول الأسبوع</h2><span class="muted small">اسحب يمين وشمال</span></div>
+      <div class="card-head"><h2>${icon('table')}جدول الأسبوع</h2><span class="muted small">دوس على أي يوم يفتحه</span></div>
       <div class="week-wrap">
         <table class="week-table">
           <thead><tr><th class="sticky">الوجبة</th>${head}</tr></thead>
@@ -189,6 +190,7 @@ export function render(ctx) {
 
 export const actions = {
   'meals-view': (el, ctx) => { ctx.ui.mealsView = el.dataset.v; ctx.ui.swap = null; },
+  'meals-open-day': (el, ctx) => { ctx.iso = el.dataset.date; ctx.ui.mealsView = 'day'; ctx.ui.swap = null; window.scrollTo(0, 0); },
   'toggle-meal-at': (el, ctx) => {
     const i = Number(el.dataset.i);
     const log = dayLog(ctx.state, ctx.iso);

@@ -222,13 +222,13 @@ input[type="number"] { direction: ltr; text-align: center; font-family: var(--nu
 .day-sum .k .num { color: var(--red); }
 .day-sum .pr .num { color: var(--green); }
 
-.week-wrap { overflow-x: auto; margin: 0 -16px; padding: 0 16px; }
+.week-wrap { overflow-x: auto; margin: 0; padding: 0; border-radius: 12px; }
 .week-table { border-collapse: separate; border-spacing: 0; font-size: .78rem; min-width: 1120px; }
 .week-table th, .week-table td { border-bottom: 1px solid var(--line); padding: 8px 6px; vertical-align: top; text-align: start; width: 150px; }
 .week-table thead th { position: sticky; top: 0; background: var(--card); font-size: .82rem; text-align: center; }
 .week-table thead th small { display: block; color: var(--faint); font-family: var(--num); font-size: .9rem; }
 .week-table thead th.today { color: var(--red); }
-.week-table .sticky { position: sticky; right: 0; background: var(--card); width: 76px; min-width: 76px; z-index: 1; font-weight: 700; box-shadow: -6px 0 8px -6px rgba(0, 0, 0, .12); }
+.week-table .sticky { position: sticky; right: 0; background: var(--card); width: 76px; min-width: 76px; z-index: 2; font-weight: 700; box-shadow: -6px 0 8px -6px rgba(0, 0, 0, .12); }
 .week-table .sticky small { display: block; color: var(--red); font-family: var(--num); font-weight: 600; }
 .week-table ul { list-style: none; margin: 0; padding: 0; }
 .week-table li { padding: 1px 0; line-height: 1.4; }
@@ -408,3 +408,24 @@ summary { cursor: pointer; color: var(--red); font-weight: 700; font-size: .9rem
 .plan-meals td.ml small { display: block; color: var(--red); font-family: var(--num); font-weight: 600; }
 .plan-meals td.it { text-align: start; font-size: .78rem; line-height: 1.5; }
 .plan-meals td.it b { font-family: var(--num); font-weight: 600; }
+
+/* ---------- week navigation (all 7 days visible) ---------- */
+.week-nav { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 10px; margin-bottom: 14px; }
+.wn-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.wn-title { text-align: center; display: flex; flex-direction: column; align-items: center; line-height: 1.35; }
+.wn-title b { font-size: 1.02rem; }
+.wn-title small { color: var(--muted); font-size: .82rem; }
+.wn-title .link { font-size: .8rem; margin-top: 2px; }
+.wn-days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; margin-top: 10px; }
+.wd {
+  border: 0; background: var(--bg); color: var(--text); border-radius: 12px; font: inherit; cursor: pointer;
+  min-height: 54px; padding: 6px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0;
+}
+.wd span { font-size: .7rem; color: var(--muted); font-weight: 700; }
+.wd b { font-family: var(--num); font-size: 1.15rem; line-height: 1.15; }
+.wd.today b { color: var(--red); }
+.wd.active { background: var(--red); color: #fff; }
+.wd.active span, .wd.active b { color: #fff; }
+.week-table .th-btn { border: 0; background: none; font: inherit; font-weight: 700; color: inherit; cursor: pointer; width: 100%; padding: 2px 0; }
+.week-table th.sel, .week-table td.sel { background: var(--red-soft); }
+.week-table thead th.sel { color: var(--red); }
