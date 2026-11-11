@@ -2,6 +2,8 @@
 import { esc, n0, num } from './dom.js';
 import { icon } from './icons.js';
 import { weekNav, weekDates } from './weekchips.js';
+import { sessionTag } from './tags.js';
+import { dayPlan } from '../engine/program.js';
 import { stats, menuFor, eatenTotals } from '../model.js';
 import { MEAL_NAMES } from '../data/menus.js';
 import { FOODS, FOOD_GROUPS_AR } from '../data/foods.js';
@@ -145,37 +147,51 @@ function dayView(ctx) {
     ${swapSheet(ctx, day)}`;
 }
 
-function weekView(ctx) {
+function isOpen(ctx, d) {
+  const v = ctx.ui.weekOpen?.[d];
+  return v === undefined ? d === ctx.iso : v;
+}
+
+/** Week view: one card per day; tapping a card opens/closes it in place (never leaves the week view). */
+export function weekCards(ctx) {
   const s = ctx.state;
-  const dates = weekDates(ctx.iso);
+  const p = s.profile;
   const today = todayISO();
-  const days = dates.map((d) => ({ d, day: menuFor(s, d) }));
-  const head = days.map(({ d }) => `<th class="${d === today ? 'today' : ''}${d === ctx.iso ? ' sel' : ''}"><button class="th-btn" data-act="meals-open-day" data-date="${d}">${dayNameAr(d)}<small>${formatShort(d)}</small></button></th>`).join('');
-  const rows = MEAL_ORDER.map((key) => {
-    const cells = days.map(({ d, day }) => {
-      const sel = d === ctx.iso ? ' class="sel"' : '';
-      const m = day.meals.find((x) => x.key === key);
-      if (!m) return `<td${sel}><span class="muted">—</span></td>`;
-      const items = m.items.map((it) => `<li>${itemLabel(it.food, it.g)}</li>`).join('');
-      return `<td${sel}><ul>${items}</ul><div class="cell-k">${n0(m.totals.kcal)} سعر · ${n0(m.totals.p)} جم</div></td>`;
-    }).join('');
-    const time = s.settings.mealTimes[key];
-    return `<tr><th class="sticky">${esc(MEAL_NAMES[key].split(' (')[0])}${time ? `<small>${esc(time)}</small>` : ''}</th>${cells}</tr>`;
-  }).join('');
-  const foot = days.map(({ d, day }) => `<td${d === ctx.iso ? ' class="sel"' : ''}><span class="num">${n0(day.totals.kcal)}</span> سعر<br><span class="num good">${n0(day.totals.p)}</span> جم بروتين<br><span class="muted">${n0(day.totals.c)} كارب · ${n0(day.totals.f)} دهون</span></td>`).join('');
-  return `
-    ${weekNav(s.profile, ctx.iso, { dayAct: 'meals-open-day' })}
-    <section class="card">
-      <div class="card-head"><h2>${icon('table')}جدول الأسبوع</h2><span class="muted small">دوس على أي يوم يفتحه</span></div>
-      <div class="week-wrap">
-        <table class="week-table">
-          <thead><tr><th class="sticky">الوجبة</th>${head}</tr></thead>
-          <tbody>${rows}</tbody>
-          <tfoot><tr><th class="sticky">المجموع</th>${foot}</tr></tfoot>
+  return weekDates(ctx.iso).map((d) => {
+    const plan = dayPlan({ startIso: p.startDate, totalWeeks: p.totalWeeks, iso: d });
+    const day = menuFor(s, d);
+    const open = isOpen(ctx, d);
+    const t = day.totals;
+    const body = open ? `
+      <div class="wk-body">
+        <table class="food-table plan-meals">
+          <colgroup><col class="c-ml"><col><col class="c-n"><col class="c-n"></colgroup>
+          <thead><tr><th>الوجبة</th><th>الأكل</th><th>سعرات</th><th>بروتين</th></tr></thead>
+          <tbody>${day.meals.map((m) => `
+            <tr><td class="ml">${esc(MEAL_NAMES[m.key].split(' (')[0])}${s.settings.mealTimes[m.key] ? `<small>${esc(s.settings.mealTimes[m.key])}</small>` : ''}</td>
+              <td class="it">${m.items.map((it) => itemLabel(it.food, it.g)).join('، ')}</td>
+              <td class="n">${n0(m.totals.kcal)}</td><td class="n p">${n0(m.totals.p)}</td></tr>`).join('')}</tbody>
+          <tfoot><tr><td colspan="2">المجموع · كارب ${n0(t.c)} · دهون ${n0(t.f)}</td><td class="n">${n0(t.kcal)}</td><td class="n p">${n0(t.p)}</td></tr></tfoot>
         </table>
-      </div>
-      <p class="muted small">الأوزان بعد الطبخ. أي تبديل بتعمله في يوم بيظهر هنا.</p>
-    </section>`;
+      </div>` : '';
+    return `
+      <section class="wk-day${open ? ' open' : ''}${d === today ? ' today' : ''}" data-date="${d}">
+        <button class="wk-head" data-act="week-toggle" data-date="${d}" aria-expanded="${open}">
+          <span class="wk-name"><b>${esc(dayNameAr(d))}</b><small>${esc(formatShort(d))}${d === today ? ' · النهارده' : ''}</small></span>
+          ${sessionTag(plan.sessionKey)}
+          <span class="wk-k"><span class="num">${n0(t.kcal)}</span><small><span class="num good">${n0(t.p)}</span> جم</small></span>
+          ${icon(open ? 'chevronUp' : 'chevronDown')}
+        </button>
+        ${body}
+      </section>`;
+  }).join('');
+}
+
+function weekView(ctx) {
+  return `
+    ${weekNav(ctx.state.profile, ctx.iso, { showDays: false })}
+    <div class="wk-list">${weekCards(ctx)}</div>
+    <p class="muted small center">الأوزان بعد الطبخ. أي تبديل بتعمله في جدول اليوم بيظهر هنا.</p>`;
 }
 
 export function render(ctx) {
@@ -190,7 +206,10 @@ export function render(ctx) {
 
 export const actions = {
   'meals-view': (el, ctx) => { ctx.ui.mealsView = el.dataset.v; ctx.ui.swap = null; },
-  'meals-open-day': (el, ctx) => { ctx.iso = el.dataset.date; ctx.ui.mealsView = 'day'; ctx.ui.swap = null; window.scrollTo(0, 0); },
+  'week-toggle': (el, ctx) => {
+    const d = el.dataset.date;
+    ctx.ui.weekOpen = { ...(ctx.ui.weekOpen ?? {}), [d]: !isOpen(ctx, d) };
+  },
   'toggle-meal-at': (el, ctx) => {
     const i = Number(el.dataset.i);
     const log = dayLog(ctx.state, ctx.iso);

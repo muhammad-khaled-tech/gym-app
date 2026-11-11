@@ -23,8 +23,8 @@ export function weekTitle(profile, iso) {
   return { label, range };
 }
 
-/** dayAct: the action a day button fires (default selects the day in place). */
-export function weekNav(profile, selected, { dayAct = 'pick-date' } = {}) {
+/** dayAct: the action a day button fires. showDays: false = week header only (week view). */
+export function weekNav(profile, selected, { dayAct = 'pick-date', showDays = true } = {}) {
   const today = todayISO();
   const dates = weekDates(selected);
   const t = weekTitle(profile, selected);
@@ -36,8 +36,8 @@ export function weekNav(profile, selected, { dayAct = 'pick-date' } = {}) {
         <div class="wn-title"><b>${t.label}</b><small>${t.range}</small>${back}</div>
         <button class="icon-btn" data-act="pick-date" data-date="${addDays(selected, 7)}" aria-label="الأسبوع الجاي">${icon('chevronLeft')}</button>
       </div>
-      <div class="wn-days">
+      ${showDays ? `<div class="wn-days">
         ${dates.map((d) => `<button class="wd ${d === selected ? 'active' : ''}${d === today ? ' today' : ''}" data-act="${dayAct}" data-date="${d}"><span>${SHORT_DAYS[weekday(d)]}</span><b>${fromISO(d).getDate()}</b></button>`).join('')}
-      </div>
+      </div>` : ''}
     </div>`;
 }

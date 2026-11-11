@@ -1,5 +1,5 @@
 // Offline support: app shell precached; same-origin requests network-first with cache fallback.
-const VERSION = 'gymapp-2026-11-11-6';
+const VERSION = 'gymapp-2026-11-11-7';
 const FONTS = 'gymapp-fonts-1';
 const SHELL = [
   './', './index.html', './manifest.webmanifest', './css/app.css',
@@ -8,7 +8,7 @@ const SHELL = [
   './js/engine/menu.js', './js/engine/reminders.js',
   './js/data/foods.js', './js/data/menus.js', './js/data/exercises.js', './js/data/videos.js',
   './js/ui/dom.js', './js/ui/icons.js', './js/ui/chart.js', './js/ui/weekchips.js', './js/ui/onboarding.js', './js/ui/today.js',
-  './js/ui/meals.js', './js/ui/workout.js', './js/ui/progress.js', './js/ui/settings.js', './js/ui/plan.js',
+  './js/ui/meals.js', './js/ui/workout.js', './js/ui/progress.js', './js/ui/settings.js', './js/ui/plan.js', './js/ui/tags.js',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png',
 ];
 

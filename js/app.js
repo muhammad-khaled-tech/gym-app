@@ -88,15 +88,6 @@ function render() {
     document.getElementById('top-settings').hidden = false;
     root.innerHTML = VIEWS[ctx.tab].render(ctx);
     for (const b of nav.querySelectorAll('[data-tab]')) b.classList.toggle('active', b.dataset.tab === ctx.tab);
-    // Week table: bring the selected day's column into view (works in RTL too).
-    const col = root.querySelector('.week-table thead th.sel');
-    const wrap = col?.closest('.week-wrap');
-    if (wrap) {
-      const sticky = wrap.querySelector('thead th.sticky')?.offsetWidth ?? 0;
-      const c = col.getBoundingClientRect();
-      const w = wrap.getBoundingClientRect();
-      wrap.scrollLeft += c.left - w.left - (w.width - sticky - c.width) / 2;
-    }
   } catch (e) {
     console.error(e);
     root.innerHTML = `<section class="card danger"><h2>حصلت مشكلة</h2><p class="muted small">${String(e.message).replace(/</g, '&lt;')}</p>

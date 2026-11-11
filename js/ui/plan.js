@@ -1,6 +1,7 @@
 // "Plan": month calendar of the whole program; tap a day to see its workout and meals.
 import { esc, n0, n1 } from './dom.js';
 import { icon } from './icons.js';
+import { SESSION_SHORT, sessionType } from './tags.js';
 import { monthMatrix, MONTHS_AR, todayISO, fromISO, formatLong, diffDays } from '../engine/dates.js';
 import { dayPlan, PHASE_AR } from '../engine/program.js';
 import { formatAmount } from '../engine/menu.js';
@@ -9,10 +10,8 @@ import { MEAL_NAMES } from '../data/menus.js';
 import { FOODS } from '../data/foods.js';
 import { menuFor, stats, programEnd } from '../model.js';
 
-const SHORT = {
-  pushA: 'دفع A', pushB: 'دفع B', pullA: 'سحب A', pullB: 'سحب B', legsA: 'رجل A', legsB: 'رجل B', fullBody: 'فول بادي', rest: 'راحة',
-};
-const typeOf = (k) => (k.startsWith('push') ? 'push' : k.startsWith('pull') ? 'pull' : k.startsWith('legs') ? 'legs' : k);
+const SHORT = SESSION_SHORT;
+const typeOf = sessionType;
 const DAY_HEAD = ['سبت', 'أحد', 'إتنين', 'تلات', 'أربع', 'خميس', 'جمعة'];
 
 function shownPlan(p, iso, today) {

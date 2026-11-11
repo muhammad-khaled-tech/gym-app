@@ -429,3 +429,29 @@ summary { cursor: pointer; color: var(--red); font-weight: 700; font-size: .9rem
 .week-table .th-btn { border: 0; background: none; font: inherit; font-weight: 700; color: inherit; cursor: pointer; width: 100%; padding: 2px 0; }
 .week-table th.sel, .week-table td.sel { background: var(--red-soft); }
 .week-table thead th.sel { color: var(--red); }
+
+/* ---------- week view: day cards ---------- */
+.s-tag { font-size: .72rem; font-weight: 700; border-radius: 8px; padding: 2px 8px; white-space: nowrap; }
+.s-tag.t-push { background: #fee2e2; color: #991b1b; }
+.s-tag.t-pull { background: #dbeafe; color: #1e40af; }
+.s-tag.t-legs { background: #fef3c7; color: #92400e; }
+.s-tag.t-fullBody { background: #ede9fe; color: #5b21b6; }
+.s-tag.t-rest { background: var(--bg); color: var(--muted); }
+.wk-list { display: grid; gap: 10px; margin-bottom: 10px; }
+.wk-day { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.wk-day.today { box-shadow: var(--shadow), inset 0 0 0 2px var(--red); }
+.wk-head {
+  width: 100%; border: 0; background: none; font: inherit; color: var(--text); cursor: pointer; text-align: start;
+  display: grid; grid-template-columns: 1fr auto auto 20px; align-items: center; gap: 10px; padding: 12px 14px; min-height: 60px;
+}
+.wk-name { display: flex; flex-direction: column; line-height: 1.3; }
+.wk-name small { color: var(--muted); font-family: var(--num); font-size: .85rem; }
+.wk-day.today .wk-name small { color: var(--red); font-family: var(--font); font-weight: 700; }
+.wk-k { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.2; }
+.wk-k .num { font-size: 1.1rem; }
+.wk-k small { color: var(--muted); font-size: .72rem; }
+.wk-head .ic { color: var(--faint); }
+.wk-day.open .wk-head { border-bottom: 1px solid var(--line); }
+.wk-body { padding: 4px 12px 12px; }
+.wk-body .plan-meals tfoot td { font-size: .78rem; }
+.wk-body .plan-meals tfoot td.n { font-size: .98rem; }

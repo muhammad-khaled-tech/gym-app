@@ -23,6 +23,7 @@ test('week nav shows all 7 days and moves by exactly one week', () => {
   assert.ok(html.includes('data-date="2026-11-10"'), 'previous week keeps the same weekday');
   assert.ok(html.includes('data-date="2026-11-24"'), 'next week keeps the same weekday');
   assert.ok(/class="wd active[^"]*" data-act="pick-date" data-date="2026-11-17"/.test(html));
-  const weekView = weekNav(P, '2026-11-17', { dayAct: 'meals-open-day' });
-  assert.ok(weekView.includes('data-act="meals-open-day" data-date="2026-11-14"'));
+  const weekOnly = weekNav(P, '2026-11-17', { showDays: false });
+  assert.equal((weekOnly.match(/class="wd /g) || []).length, 0, 'week view has no day strip');
+  assert.ok(weekOnly.includes('data-date="2026-11-24"'), 'week arrows still there');
 });
