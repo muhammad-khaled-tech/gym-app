@@ -1,5 +1,5 @@
 // Offline support: app shell precached; same-origin requests network-first with cache fallback.
-const VERSION = 'gymapp-2026-11-11-3';
+const VERSION = 'gymapp-2026-11-11-4';
 const FONTS = 'gymapp-fonts-1';
 const SHELL = [
   './', './index.html', './manifest.webmanifest', './css/app.css',

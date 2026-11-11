@@ -132,6 +132,7 @@ document.addEventListener('visibilitychange', () => {
 });
 
 if (loaded.error) document.getElementById('banner').hidden = false;
+else if (loaded.state.profile) saveState(loaded.state); // persist any schema migration right away
 renderChrome();
 render();
 

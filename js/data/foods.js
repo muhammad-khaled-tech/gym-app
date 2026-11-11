@@ -74,6 +74,11 @@ export const FOODS = {
   arugula:          F('جرجير', 25, 2.6, 3.7, 0.7, 'veg'),
   bell_pepper:      F('فلفل رومي ألوان (سوتيه من غير زيت)', 20, 0.9, 4.6, 0.2, 'veg'),
   onion:            F('بصل', 40, 1.1, 9.3, 0.1, 'veg'),
+  // Boiled vegetables (USDA boiled, drained). The mix = equal parts carrot, zucchini, peas, green beans, broccoli.
+  boiled_veg:       F('خضار مشكل مسلوق (جزر، كوسة، بسلة، فاصوليا، بروكلي)', 41, 2.3, 8.4, 0.3, 'veg'),
+  broccoli:         F('بروكلي مسلوق', 35, 2.4, 7.2, 0.4, 'veg'),
+  carrot_boiled:    F('جزر مسلوق', 35, 0.8, 8.2, 0.2, 'veg'),
+  cauliflower:      F('قرنبيط مسلوق', 23, 1.8, 4.1, 0.5, 'veg'),
 
   // ---- fruit ----
   banana:     F('موز', 89, 1.1, 22.8, 0.3, 'fruit', 118, 'موزة'),

@@ -1,7 +1,7 @@
 // App state in localStorage (one JSON object). Never throws: storage failures are reported.
 
 const KEY = 'gymapp.v1';
-export const SCHEMA = 1;
+export const SCHEMA = 2; // 2: default pace became 'fast' (25% deficit)
 
 export const DEFAULT_MEAL_TIMES = {
   breakfast: '09:00', lunch: '14:00', snack: '17:30', dinner: '21:30', night: '23:30',
@@ -10,7 +10,7 @@ export const DEFAULT_MEAL_TIMES = {
 export function defaultState() {
   return {
     schema: SCHEMA,
-    profile: null, // {age, height, weightKg, neck, waist, hip, arm, pal, startDate, totalWeeks, targetBf}
+    profile: null, // {age, height, weightKg, neck, waist, hip, arm, pal, pace, startDate, totalWeeks, targetBf}
     settings: { mealTimes: { ...DEFAULT_MEAL_TIMES } },
     weights: [], // [{date, kg}]
     measurements: [], // [{date, waist, neck, hip, arm}]
@@ -27,6 +27,8 @@ function migrate(s) {
   const base = defaultState();
   const out = { ...base, ...s, settings: { ...base.settings, ...(s.settings ?? {}) } };
   out.settings.mealTimes = { ...DEFAULT_MEAL_TIMES, ...(out.settings.mealTimes ?? {}) };
+  // schema 1 -> 2: the user asked for the 25% deficit by default (2026-11-11).
+  if ((s.schema ?? 1) < 2 && out.profile) out.profile = { ...out.profile, pace: 'fast' };
   out.schema = SCHEMA;
   return out;
 }

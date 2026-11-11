@@ -8,7 +8,7 @@ function refState() {
   const s = defaultState();
   s.profile = {
     age: 30, height: 175, weightKg: 95, neck: 40, waist: 105, hip: 108, arm: 36,
-    pal: 1.375, startDate: '2026-11-11', totalWeeks: 12, targetBf: 20,
+    pal: 1.375, startDate: '2026-11-11', totalWeeks: 12, targetBf: 20, pace: 'balanced',
   };
   s.weights = [{ date: '2026-11-11', kg: 95 }];
   s.measurements = [{ date: '2026-11-11', waist: 105, neck: 40, hip: 108, arm: 36 }];
@@ -22,6 +22,24 @@ test('stats for the reference example on day 1', () => {
   assert.equal(st.plan.weekNumber, 1);
   assert.equal(st.mode, 'deficit');
   assert.equal(programEnd(refState().profile), '2027-02-02');
+});
+
+test('default pace is fast (25%) when none is saved', () => {
+  const s = refState();
+  delete s.profile.pace;
+  assert.equal(stats(s, '2026-11-11').targets.kcal, 1950);
+});
+
+test('schema 1 data moves to the fast pace once', () => {
+  const s = refState();
+  s.schema = 1;
+  s.profile.pace = 'balanced';
+  const migrated = importJSON(JSON.stringify(s));
+  assert.equal(migrated.profile.pace, 'fast');
+  assert.equal(migrated.schema, 2);
+  // a later deliberate choice of 'balanced' (schema 2) is kept
+  const again = importJSON(JSON.stringify({ ...migrated, profile: { ...migrated.profile, pace: 'balanced' } }));
+  assert.equal(again.profile.pace, 'balanced');
 });
 
 test('fast pace lowers calories but keeps protein', () => {
