@@ -1,6 +1,7 @@
 // Bootstrap: state, tab router, event delegation, service worker.
 import { loadState, saveState } from './store.js';
-import { todayISO } from './engine/dates.js';
+import { todayISO, dayNameAr, formatShort } from './engine/dates.js';
+import { icon } from './ui/icons.js';
 import * as Onboarding from './ui/onboarding.js';
 import * as Today from './ui/today.js';
 import * as Meals from './ui/meals.js';
@@ -53,9 +54,26 @@ const ctx = {
   },
 };
 
+const TABS = [
+  ['today', 'home', 'النهارده'],
+  ['meals', 'utensils', 'الأكل'],
+  ['workout', 'dumbbell', 'التمرين'],
+  ['progress', 'chart', 'التقدم'],
+  ['settings', 'sliders', 'الإعدادات'],
+];
+
+function renderChrome() {
+  document.getElementById('logo-mark').innerHTML = icon('dumbbell');
+  const t = todayISO();
+  document.getElementById('top-date').textContent = `${dayNameAr(t)} ${formatShort(t)}`;
+  document.getElementById('nav').innerHTML = TABS.map(([tab, ic, label]) =>
+    `<button data-act="tab" data-tab="${tab}"><span class="ic-wrap">${icon(ic)}</span>${label}</button>`).join('');
+}
+
 function render() {
   const root = document.getElementById('view');
   const nav = document.getElementById('nav');
+  document.getElementById('top-date').textContent = `${dayNameAr(todayISO())} ${formatShort(todayISO())}`;
   try {
     if (!ctx.state.profile) {
       nav.hidden = true;
@@ -114,6 +132,7 @@ document.addEventListener('visibilitychange', () => {
 });
 
 if (loaded.error) document.getElementById('banner').hidden = false;
+renderChrome();
 render();
 
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {

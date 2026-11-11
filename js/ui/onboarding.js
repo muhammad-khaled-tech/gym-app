@@ -1,5 +1,6 @@
 // First run: collect measurements and program settings (stored only on this phone).
 import { esc, num } from './dom.js';
+import { icon } from './icons.js';
 import { todayISO } from '../engine/dates.js';
 import { upsertByDate } from '../store.js';
 
@@ -61,15 +62,16 @@ export function readProgram(form) {
 
 export function render() {
   return `
-    <section class="card hero">
-      <h1>أهلًا بيك 👋</h1>
+    <section class="card welcome">
+      <div class="logo-mark">${icon('dumbbell')}</div>
+      <h1>أهلًا بيك في خطتي</h1>
       <p>دخّل مقاساتك مرة واحدة، والأبليكيشن هيحسبلك نسبة الدهون والسعرات والبروتين، ويبنيلك البرنامج والأكل.</p>
-      <p class="muted">بياناتك بتتحفظ على الموبايل ده بس، ومش بتتبعت لأي حد.</p>
+      <p class="muted small">بياناتك بتتحفظ على الموبايل ده بس، ومش بتتبعت لأي حد.</p>
     </section>
     <form class="card" data-submit="onboard">
-      <h2>مقاساتك</h2>
-      ${profileFields()}
-      <h2>البرنامج</h2>
+      <div class="card-head"><h2>${icon('ruler')}مقاساتك</h2></div>
+      <div class="form-grid">${profileFields()}</div>
+      <div class="card-head" style="margin-top:14px"><h2>${icon('calendar')}البرنامج</h2></div>
       ${programFields()}
       <button class="btn primary block" type="submit">ابدأ</button>
     </form>`;

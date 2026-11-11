@@ -28,9 +28,13 @@ export function weightChart(weights, endIso, startIso) {
   }
   const dots = pts.map((p) => `<circle cx="${sx(diffDays(first, p.date)).toFixed(1)}" cy="${sy(p.kg).toFixed(1)}" r="2.6" class="dot"/>`).join('');
   const line = avg.map((p, i) => `${i ? 'L' : 'M'}${sx(p.x).toFixed(1)},${sy(p.y).toFixed(1)}`).join(' ');
+  const area = avg.length > 1
+    ? `${line} L${sx(avg[avg.length - 1].x).toFixed(1)},${H - B} L${sx(avg[0].x).toFixed(1)},${H - B} Z`
+    : '';
   return `
     <svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="رسم الوزن" direction="ltr">
       ${grid.join('')}
+      <path d="${area}" class="area"/>
       <path d="${line}" class="avg"/>
       ${dots}
       <text x="${L}" y="${H - 4}" class="axis">${formatShort(first)}</text>

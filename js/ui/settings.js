@@ -1,5 +1,9 @@
 // "Settings": profile & program, meal times, calendar reminders, backup, reset.
 import { esc, download } from './dom.js';
+import { icon } from './icons.js';
+
+const EV_ICON = (id) => (id.startsWith('meal') ? 'utensils' : id.startsWith('workout') ? 'dumbbell' : id === 'steps' ? 'activity' : 'ruler');
+const noEmoji = (t) => t.replace(/^[^\p{L}\p{N}]+/u, '');
 import { programFields, readProgram } from './onboarding.js';
 import { programEnd } from '../model.js';
 import { MEAL_NAMES } from '../data/menus.js';
@@ -22,29 +26,30 @@ export function render(ctx) {
   const ev = events(s);
   const evRows = ev.map((e) => `
     <li class="item">
-      <div class="grow">${esc(e.title)}<div class="muted small">${esc(e.time)} · ${e.rrule.includes('WEEKLY') ? 'كل أسبوع' : 'كل يوم'}</div></div>
-      <a class="btn small" href="${esc(gcalLink(e))}" target="_blank" rel="noopener">ضيف</a>
+      <span class="ic-box">${icon(EV_ICON(e.id))}</span>
+      <div class="grow"><b>${esc(noEmoji(e.title))}</b><div class="muted small"><span class="num">${esc(e.time)}</span> · ${e.rrule.includes('WEEKLY') ? 'كل أسبوع' : 'كل يوم'}</div></div>
+      <a class="btn small soft" href="${esc(gcalLink(e))}" target="_blank" rel="noopener">${icon('plus')}ضيف</a>
     </li>`).join('');
   const times = Object.keys(s.settings.mealTimes).map((k) => `
     <label class="field inline"><span>${esc(MEAL_NAMES[k])}</span>
       <input type="time" data-change="mealtime" data-k="${k}" value="${esc(s.settings.mealTimes[k])}"></label>`).join('');
   return `
     <section class="card">
-      <h2>التذكيرات على Google Calendar</h2>
+      <div class="card-head"><h2>${icon('bell')}التذكيرات</h2><span class="muted small">Google Calendar</span></div>
       <p class="muted small">الويب أبليكيشن مش بيقدر يبعت إشعارات وهو مقفول، فالتذكيرات بتتعمل على Google Calendar وإشعاراته بتيجي دايمًا. دوس <b>ضيف</b> على كل تذكير، وهيفتحلك Google Calendar والتذكير جاهز ومتكرر لحد آخر البرنامج. دوس <b>Save</b> هناك وارجع هنا.</p>
       <p class="muted small">لو غيّرت مواعيد الوجبات أو مدة البرنامج، امسح التذكيرات القديمة من Calendar وضيفها تاني.</p>
       <ul class="items">${evRows}</ul>
-      <button class="btn ghost block" data-act="download-ics">أو نزّل كل التذكيرات في ملف .ics</button>
+      <button class="btn ghost block" data-act="download-ics">${icon('download')}أو نزّل كل التذكيرات في ملف .ics</button>
     </section>
 
     <section class="card">
-      <h2>مواعيد الوجبات</h2>
+      <div class="card-head"><h2>${icon('clock')}مواعيد الوجبات</h2></div>
       ${times}
       <p class="muted small">السناك يتحط قبل التمرين بساعة ونص لـ 3 ساعات، أو بعده على طول.</p>
     </section>
 
     <form class="card" data-submit="save-profile">
-      <h2>البرنامج وبياناتك</h2>
+      <div class="card-head"><h2>${icon('user')}البرنامج وبياناتك</h2></div>
       <label class="field"><span>الطول (سم)</span><input name="height" type="number" step="0.1" value="${esc(p.height)}"></label>
       <label class="field"><span>السن</span><input name="age" type="number" value="${esc(p.age)}"></label>
       ${programFields(p)}
@@ -53,22 +58,22 @@ export function render(ctx) {
     </form>
 
     <section class="card">
-      <h2>تصحيح السعرات</h2>
+      <div class="card-head"><h2>${icon('flame')}تصحيح السعرات</h2></div>
       <p class="muted small">تعديل يدوي: ${s.kcalOffset ?? 0} سعر · الحرق: ${s.tdeeOverride ? `${s.tdeeOverride} (من الترند)` : 'من المعادلة'}</p>
       <button class="btn ghost" data-act="reset-calories">رجّع السعرات للمعادلة</button>
     </section>
 
     <section class="card">
-      <h2>نسخة احتياطية</h2>
+      <div class="card-head"><h2>${icon('shield')}نسخة احتياطية</h2></div>
       <p class="muted small">بياناتك متخزنة في كروم على الموبايل ده بس. لو مسحت بيانات كروم هتروح، فاعمل نسخة كل أسبوع وابعتها لنفسك.</p>
       <div class="row">
-        <button class="btn" data-act="export">نزّل نسخة</button>
-        <label class="btn ghost file-btn">رجّع من نسخة<input type="file" accept="application/json,.json" data-change="import" hidden></label>
+        <button class="btn primary" data-act="export">${icon('download')}نزّل نسخة</button>
+        <label class="btn ghost file-btn">${icon('upload')}رجّع من نسخة<input type="file" accept="application/json,.json" data-change="import" hidden></label>
       </div>
     </section>
 
-    <section class="card danger">
-      <h2>امسح كل حاجة</h2>
+    <section class="card danger-zone">
+      <div class="card-head"><h2>${icon('trash')}امسح كل حاجة</h2></div>
       <button class="btn danger" data-act="reset-all">امسح البيانات وابدأ من الأول</button>
     </section>
 
@@ -89,7 +94,7 @@ export const actions = {
     ctx.state.tdeeOverride = null;
     ctx.state.adviceAppliedOn = null;
     ctx.save();
-    ctx.toast('رجعت للمعادلة ✓');
+    ctx.toast('رجعت للمعادلة');
   },
   export: (el, ctx) => {
     download(`gym-backup-${todayISO()}.json`, exportJSON(ctx.state));
@@ -102,7 +107,7 @@ export const actions = {
       try {
         ctx.state = importJSON(text);
         ctx.save();
-        ctx.toast('البيانات رجعت ✓');
+        ctx.toast('البيانات رجعت');
         ctx.render();
       } catch (e) {
         ctx.toast(e.message);
@@ -128,6 +133,6 @@ export const submits = {
     if (age > 10) p.age = age;
     Object.assign(p, readProgram(form));
     ctx.save();
-    ctx.toast('اتحفظ ✓');
+    ctx.toast('اتحفظ');
   },
 };

@@ -1,4 +1,5 @@
 // Small rendering helpers shared by the screens.
+import { icon } from './icons.js';
 
 const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
 export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ESC[c]);
@@ -31,7 +32,7 @@ export const num = (v) => {
 export function videoBlock(video, backup, searchQuery) {
   const search = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery + ' form tutorial')}`;
   if (!video) {
-    return `<a class="video-missing" href="${search}" target="_blank" rel="noopener">▶ دوّر على فيديو للتمرين ده على يوتيوب</a>`;
+    return `<a class="video-missing" href="${search}" target="_blank" rel="noopener">دوّر على فيديو للتمرين ده على يوتيوب</a>`;
   }
   const links = [
     backup ? `<button class="link" data-act="play" data-id="${esc(backup.id)}">فيديو تاني</button>` : '',
@@ -41,7 +42,7 @@ export function videoBlock(video, backup, searchQuery) {
     <div class="video-wrap">
       <button class="video" data-act="play" data-id="${esc(video.id)}" aria-label="شغّل الفيديو"
         style="background-image:url('https://i.ytimg.com/vi/${esc(video.id)}/hqdefault.jpg')">
-        <span class="play">▶</span>
+        <span class="play">${icon('play')}</span>
       </button>
       <div class="video-meta"><span>${esc(video.channel ?? '')}</span><span>${links}</span></div>
     </div>`;
